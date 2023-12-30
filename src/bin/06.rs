@@ -26,15 +26,9 @@ pub fn part_one(input: &str) -> Option<u64> {
     let mut counts = Vec::new();
 
     for race in races {
-        let mut count = 0;
-        for i in 0..=race.time {
-            if i * (race.time - i) > race.distance {
-                count += 1;
-            }
-        }
-        if count > 0 {
-            counts.push(count);
-        }
+        let vec: Vec<_> = (0..=race.time).collect();
+        let c = vec.iter().filter(|i| *i * (race.time - *i) > race.distance).count();
+        counts.push(c as u64);
     }
 
     Some(counts.into_iter().product::<u64>())
